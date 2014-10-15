@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+    <Link href="css/style.css" rel="stylesheet" type="text/css">
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular.min.js"></script>
+    <script src="js/app.js"></script>
+  </head>
+  <body ng-app="wordImages">
+    <form ng-submit="addPost()" style="margin-top:30px">
+      <h3>Search any term:</h3>
+
+      <div class="form-group">
+        <input type="search" class="form-control" ng-model="title">
+      </div>
+
+      <button type="submit" class="btn btn-primary">Search</button>
+    </form>
+  </body>
+</html>

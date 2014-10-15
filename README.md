@@ -5,7 +5,7 @@ Description:
 Given a word, display images for that word and images for each related word (like synonyms and same-context words) for that input word. Add in anything you feel could make this interesting: for example a count of images found for each word.
 
 Data:
-Use public APIs. (Hint: wordnik & flickr)
+Wordnik & Flickr API
 
 Technologies:
 We'd like you to use AngularJS to build this. You could use node.js to serve it. Use any other libraries that you wish to use but please call out when submitting whats been included for which purpose.
