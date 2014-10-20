@@ -1,4 +1,3 @@
-
 var app = angular.module('wordImages', []);
 
 app.factory('wordService', ['$http', function($http){
@@ -90,6 +89,7 @@ app.controller('SearchCtrl', ['$scope', '$http', 'wordService', function($scope,
     $scope.word.phrase = $scope.query;
     $scope.word.findRelatedWords($scope.word.phrase);
     $scope.word.findImages($scope.word.phrase);
+    $scope.word.findRelatedImages;
     console.log(wordService);
   };
 }]);

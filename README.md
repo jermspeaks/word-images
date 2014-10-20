@@ -1,17 +1,30 @@
 Word to Image App
 =================
 
-Description: 
-Given a word, display images for that word and images for each related word (like synonyms and same-context words) for that input word. Add in anything you feel could make this interesting: for example a count of images found for each word.
-
-Data:
-Wordnik & Flickr API
+When you search for a word, it displays the images for that word and related words. The application is supposed to show related images, so that will be on the next revision.
 
 Technologies:
-We'd like you to use AngularJS to build this. You could use node.js to serve it. Use any other libraries that you wish to use but please call out when submitting whats been included for which purpose.
+* AngularJS
+* NodeJS
+* ExpressJS
 
-Evaluation:
-We'll be looking for understanding of HTML5, CSS, Javascript and some AngularJS. We'll keep an eye out for modularity, cleanliness and some level of design sensibilities. 
+Libraries:
+* [X2JS](https://code.google.com/p/x2js/) - Flickr API outputs XML, and AngularJS is very JSON-centric, so I decided to convert the XML to JSON using this library. The XML data has proper headers, so no customization was needed.
 
-Delivery:
-Please put this in a git repo and send it across. Feel free to do more or less than whats outlined above and describe anything you might want to call out when you submit this.
+Data: Wordnik & Flickr API
+
+How to start app:
+
+In your terminal:
+
+```
+$ npm start
+```
+
+Go to localhost:3000 and start playing around.
+
+
+Next Revision:
+
+* Unit Testing
+* Related Images (replaced for related words)
