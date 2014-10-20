@@ -23,17 +23,17 @@
         <button type="submit" class="btn btn-primary">Search</button>
       </form> 
 
-      <div class="images" ng-show="word.relatedImages.length">
+      <div class="row images" ng-show="word.relatedImages.length">
         <h3>Images:</h3>
         <div class="col-md-4" ng-repeat='image in word.relatedImages'>
           <img ng-src='{{image.link}}' title="{{image.title}}" class="img-thumbnail">
         </div>
       </div>
 
-      <div class="related" ng-show="word.relatedWords.length" class="col-md-1">
+      <div class="row related" ng-show="word.relatedWords.length">
         <h3>Related Terms:</h3>
         <ul>
-          <li ng-repeat="word in word.relatedWords" class="list-group-item">
+          <li ng-repeat="word in word.relatedWords" class="list-group-item" class="col-md-7">
             {{word}}
           </li>
         </ul>

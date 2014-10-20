@@ -49,7 +49,7 @@ app.factory('wordService', ['$http', function($http){
       params: {
         method: 'flickr.photos.search',
         api_key: 'd71c11e736e7e05378ba9efb01aa58e5',
-        text: phrase,
+        tags: phrase,
         privacy_filter: 1,
         per_page: 8,
         content_type: 1
