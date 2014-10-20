@@ -7,11 +7,14 @@ Technologies:
 * AngularJS
 * NodeJS
 * ExpressJS
+* Bootstrap
 
 Libraries:
 * [X2JS](https://code.google.com/p/x2js/) - Flickr API outputs XML, and AngularJS is very JSON-centric, so I decided to convert the XML to JSON using this library. The XML data has proper headers, so no customization was needed.
 
-Data: Wordnik & Flickr API
+### Data:
+* Wordnik API
+* Flickr API
 
 How to start app:
 
