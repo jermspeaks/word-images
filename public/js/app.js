@@ -1,23 +1,41 @@
 
 var app = angular.module('wordImages', []);
 
-app.factory('words', ['$http', function($http){
+app.factory('wordService', ['$http', function($http){
   var o = {
     phrase: '',
-    relatedWords: []
+    relatedWords: [],
+    relatedImages: []
   };
 
-  o.encoded = function(){
-    return encodeURIComponent(o.phrase);
+  o.encoded = function(phrase){
+    return encodeURIComponent(phrase);
   };
 
-  o.relatedWords = function(){
+  o.flickrApi = function(){
+    var url;
+    return url;
+  };
+
+  o.wordnikApi = function(phrase){
+    var url = "http://api.wordnik.com/v4/word.json/" + o.encoded(phrase) + '/relatedWords';
+    return url;
+  };
+
+  o.findRelatedWords = function(phrase){
     // http get request for Wordnik API related words given one word
-    
-    $http.get($scope.url)
+    var url = o.wordnikApi(phrase);
+    $http.get(url, {
+        params: {
+          useCanonical: false,
+          relationshipTypes: "same-context",
+          limitPerRelationshipType: 3,
+          api_key: 'cc81d7e8860759297300909ef310ea2bbed676b7658348a08'
+        }
+     })
       .success(function(data){
-        console.log(data);
-        // $scope.words.relatedWords = data[0].words;
+        var related = data[0].words;
+        angular.copy(related, o.relatedWords);
       })
       .error(function(){
         console.log('failure');
@@ -27,32 +45,15 @@ app.factory('words', ['$http', function($http){
   o.wordImages = function(){
     // http get request for Flickr API first three images about the word
   };
-
-  o.relatedImages = function(){
-    // http get request for other words Flickr API first three images, looped for each related word
-  };
-
-
-
   return o;
 }]);
 
-app.controller('SearchCtrl', ['$scope', '$http', 'words', function($scope, $http, words){
-  $scope.words = words;
+app.controller('SearchCtrl', ['$scope', '$http', 'wordService', function($scope, $http, wordService){
+  $scope.wordService = wordService;
 
   $scope.searchTerm = function(){
-    $scope.words.phrase = $scope.query;
-    $scope.url = "/search?q=" + $scope.words.encoded();
-    // Find Images of the Word
-
-    // Find Related Words
-    $http.get($scope.url)
-      .success(function(data){
-        console.log(data);
-        // $scope.words.relatedWords = data[0].words;
-      })
-      .error(function(){
-        console.log('failure');
-      });
+    $scope.wordService.phrase = $scope.query;
+    $scope.wordService.findRelatedWords($scope.wordService.phrase);
+    console.log(wordService);
   };
 }]);

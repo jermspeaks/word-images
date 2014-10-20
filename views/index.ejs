@@ -11,7 +11,7 @@
     <h1><%= title %></h1>
     <p>Welcome to <%= title %></p>
 
-    <div ng-controller="SearchCtrl">
+    <div ng-controller="SearchCtrl as search">
       <form ng-submit="searchTerm()" style="margin-top:30px">
         <h3>Search any term:</h3>
 
@@ -21,6 +21,26 @@
 
         <button type="submit" class="btn btn-primary">Search</button>
       </form> 
+
+      <div class="images">
+        <h3>Images:</h3>
+        <ul>
+
+        </ul>
+      </div>
+
+      <div class="related">
+        <h3>Related Terms:</h3>
+        <ul>
+          <li ng-repeat="word in wordService.relatedWords">
+            {{word}}
+          </li>
+        </ul>
+      </div>
+
     </div>
+
+    
+
   </body>
 </html>
