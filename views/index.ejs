@@ -5,6 +5,7 @@
     <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet" type="text/css">
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.20/angular.min.js"></script>
+    <script src="js/xml2json.min.js"></script>
     <script src="js/app.js"></script>
   </head>
   <body>
@@ -22,17 +23,17 @@
         <button type="submit" class="btn btn-primary">Search</button>
       </form> 
 
-      <div class="images">
+      <div class="images" ng-show="word.relatedImages.length">
         <h3>Images:</h3>
-        <ul>
-
-        </ul>
+        <div class="col-md-4" ng-repeat='image in word.relatedImages'>
+          <img ng-src='{{image.link}}' title="{{image.title}}" class="img-thumbnail">
+        </div>
       </div>
 
-      <div class="related">
+      <div class="related" ng-show="word.relatedWords.length" class="col-md-1">
         <h3>Related Terms:</h3>
         <ul>
-          <li ng-repeat="word in wordService.relatedWords">
+          <li ng-repeat="word in word.relatedWords" class="list-group-item">
             {{word}}
           </li>
         </ul>

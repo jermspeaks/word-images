@@ -13,7 +13,7 @@ app.factory('wordService', ['$http', function($http){
   };
 
   o.flickrApi = function(){
-    var url;
+    var url = 'https://api.flickr.com/services/rest/';
     return url;
   };
 
@@ -38,22 +38,58 @@ app.factory('wordService', ['$http', function($http){
         angular.copy(related, o.relatedWords);
       })
       .error(function(){
-        console.log('failure');
+        console.log('Wordnik failure');
+        o.relatedWords.push('no word found');
       });
   };
 
-  o.wordImages = function(){
-    // http get request for Flickr API first three images about the word
+  o.findImages = function(phrase){
+    var url = o.flickrApi(phrase);
+    $http.get(url, {
+      params: {
+        method: 'flickr.photos.search',
+        api_key: 'd71c11e736e7e05378ba9efb01aa58e5',
+        text: phrase,
+        privacy_filter: 1,
+        per_page: 8,
+        content_type: 1
+      },
+      transformResponse: function(data){
+        var x2js = new X2JS();
+        var json = x2js.xml_str2json(data);
+        return json;
+      }
+    })
+    .success(function(data){
+      var related = data.rsp.photos.photo;
+      var i = 0, link = '', image = {}, images = [];
+      for(var i = 0; i < 8; i++) {
+        image.link = 'https://farm' + related[i]._farm + '.staticflickr.com/' + related[i]._server + '/' + related[i]._id + '_' + related[i]._secret + '_m.jpg'
+        image.title = related[i]._title
+        images.push(image);
+        image = {};
+      }
+      angular.copy(images, o.relatedImages);
+    })
+    .error(function(){
+      console.log('Flickr failure');
+      var image = {
+        link: 'http://www.hollandlift.com/wp-content/themes/hollandlift/assets/images/no_image.jpg',
+        title: 'no image found'
+      };
+      o.relatedImages.push(image);
+    });
   };
   return o;
 }]);
 
 app.controller('SearchCtrl', ['$scope', '$http', 'wordService', function($scope, $http, wordService){
-  $scope.wordService = wordService;
+  $scope.word = wordService;
 
   $scope.searchTerm = function(){
-    $scope.wordService.phrase = $scope.query;
-    $scope.wordService.findRelatedWords($scope.wordService.phrase);
+    $scope.word.phrase = $scope.query;
+    $scope.word.findRelatedWords($scope.word.phrase);
+    $scope.word.findImages($scope.word.phrase);
     console.log(wordService);
   };
 }]);
